@@ -1,0 +1,40 @@
+﻿@model  IEnumerable<BanAoDai.Models.ShoppingCartItem>
+@using BanAoDai.Common
+
+
+
+
+@if (Model != null && Model.Any())
+{
+    <h3>GIỎ HÀNG <span style="float:right;position:relative"><small class="checkout_items">@Model.Count()</small></span></h3>
+    //var i = 0;
+    var tongtien = decimal.Zero;
+    <div style="border:1px solid #ff0000;">
+        <table class="table">
+            @foreach (var item in Model)
+            {
+                tongtien += item.TotalPrice;
+                <tr>
+
+                    <td>@item.ProductName</td>
+                    <th class="text-left">@Common.FormatNumber(item.Price, 0)</th>
+                </tr>
+
+            }
+            <tr>
+
+                <th>Tổng Tiền</th>
+                <th>@Common.FormatNumber(tongtien, 0)</th>
+            </tr>
+        </table>
+    </div>
+
+
+
+}
+else
+{
+
+}
+
+

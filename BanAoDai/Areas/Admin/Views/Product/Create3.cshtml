@@ -1,0 +1,132 @@
+﻿@model MyClass.Model.Product
+
+@{
+    ViewBag.Title = "Thêm mới Dah Mục";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@*<div class="content-wrapper">*@
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">
+                        THÊM DANH MỤC SẢN PHẨM
+                    </strong>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button class="btn btn-success btn-sm" type="submit"><i class="fas fa-save"></i>Lưu</button>
+                    <a href="@Url.Action("Index","Product")" class="btn btn-sm btn-info">
+                        <i class="fas fa-arrow-circle-left"></i>Về danh sách
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        <label for="Name">Tên sản phẩm</label>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="MetaKey">Thương hiệu</label>
+                        @Html.EditorFor(model => model.BrandId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+
+                        <label for="MetaKey">Chi tiết</label>
+                        @Html.TextAreaFor(model => model.Detail, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+
+                        <label for="MetaKey">Giá</label>
+                        @Html.EditorFor(model => model.PriceBuy, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PriceBuy, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+
+                        <label for="MetaKey">Từ khóa</label>
+                        @Html.TextAreaFor(model => model.SeoKeyword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SeoKeyword, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="MetaDesc">Mô tả</label>
+                        @Html.TextAreaFor(model => model.MetaDescription, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="Img">Hình ảnh</label>
+                        <input type="file" id="Img" class="form-control" name="Img" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ParentId">Thứ tự</label>
+                        @Html.DropDownListFor(model => model.CatId, (SelectList)ViewBag.ListCatId, "--chọn vị trí--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CatId, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        <label for="Orders">Thứ tự</label>
+
+                        @Html.DropDownListFor(
+                       model => model.Status,
+                       new[] {
+                           new SelectListItem { Text="Chưa xuất bản",Value="2" },
+                           new SelectListItem { Text = "xuất bản", Value = "1" }
+                       },
+                       null,
+                       new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <button class="btn btn-success btn-sm" type="submit"><i class="fas fa-save"></i>Lưu</button>
+                <a href="@Url.Action("Index","Product")" class="btn btn-sm btn-info">
+                    <i class="fas fa-arrow-circle-left"></i>Về danh sách
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtDetail', {
+                customConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+    </script>
+}
+
+}
+
+

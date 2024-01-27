@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MyClass.Model.Product>
+@using BanAoDai.Common
+<div class="row">
+
+    <div class="col">
+
+
+        @foreach (var product in Model)
+        {
+            <!-- Product 1 -->
+            var strImge = "";
+            var img = product.ProductImages.FirstOrDefault(x => x.IsDefault);
+            if (img != null)
+            {
+                strImge = img.Img;
+            }
+            <div class="product-item women">
+                <div class="product discount product_filter">
+                    <div class="product_image">
+                        <a href="/chi-tiet/@product.Slug-p@(product.Id)">
+                            <img height="220" src="@strImge" alt="@product.Img">
+                        </a>
+
+                    </div>
+                    <div class="favorite favorite_left"></div>
+                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+                    <div class="product_info">
+                        <h6 class="product_name"><a href="/chi-tiet/@product.Slug-p@(product.Id)">@product.Name</a></h6>
+                        @if (product.PriceSale > 0)
+                        {
+                            <div class="product_price">@Common.FormatNumber(product.PriceSale, 0)<span>@Common.FormatNumber(product.PriceBuy, 0)</span>  VND</div>
+                        }
+                        else
+                        {
+                            <div class="product_price">@Common.FormatNumber(product.PriceBuy, 0)<span>VND</span></div>
+                        }
+
+                    </div>
+                    <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@product.Id">add to cart</a></div>
+                </div>
+
+            </div>
+        }
+
+
+    </div>
+
+</div>
+

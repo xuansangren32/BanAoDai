@@ -1,0 +1,84 @@
+﻿@model MyClass.Model.Banner
+
+@{
+    ViewBag.Title = "Chi tiết Banner";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chi tiết Banner</h2>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">
+                        Thêm mới danh mục Sản phẩm
+                    </strong>
+                </div>
+                <div class="col-md-6 text-right">
+                    @*<a href="@Url.Action("Edit","Banner")" class="btn btn-sm btn-success"><i class="fas fa-tools"></i> Sửa</a>*@
+                    <a href="@Url.Action("Index","Banner")" class="btn btn-sm btn-success">
+                        <i class="fas fa fa-arrow-circle-left"></i> Quay lại
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Hình Ảnh</th>
+                                <th>Vị Trí</th>
+                              
+                             
+                                <th>CreatedBy</th>
+                                <th>CreatedBy_At</th>
+                                <th>UpdatedBy</th>
+                                <th>UpdatedAt</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => model.Name)
+                                </td>
+                                <td>
+                                    <img width="100" height="100"  src="~/Public/images/@Model.Img" class="img-fluid" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Position)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(model => model.CreatedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.CreatedBy_At)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.UpdatedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.UpdatedAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Status)
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

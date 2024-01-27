@@ -1,0 +1,104 @@
+﻿@model MyClass.Model.Banner
+
+@{
+    ViewBag.Title = "Thêm mới Banner";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+
+@*<div class="content-wrapper">*@
+
+@using (Html.BeginForm("Create", "Banner", FormMethod.Post,new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong class="text-danger">
+                            Thêm mới Banner
+                        </strong>
+                    </div>
+                 
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-success btn-sm " type="submit"><i class="fas fa-save"></i> Lưu</button>
+                        <a href="@Url.Action("Index","Banner")" class="btn btn-sm btn-success">
+                            <i class="fas fa fa-arrow-circle-left"></i> Quay lại
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+          
+            <div class="card-body">
+                @Html.Partial("Messege")
+                <div class="row">
+                    <div class="col-md-9">
+
+                        <div class="mb-3">
+
+                            <label for="">Tên Banner</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                        @*<div class="mb-3">
+                            <label for="Link">Liên kết</label>
+                            @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                        </div>*@
+
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="Img">Hình ảnh</label>
+                            <input type="file" id="Img" class="form-control" name="Img" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Position">Vị trí</label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Position,
+                               new[] {new SelectListItem { Text="BannerShow", Value="BannerShow"},
+                               new SelectListItem { Text = "Quảng Cáo", Value = "ads" } },
+                               null,
+                               new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="ParentId">Trạng thái</label>
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.Status,
+                                   new[] {new SelectListItem { Text="Chưa xuất bản", Value="2"},
+                                   new SelectListItem { Text = "Xuất bản", Value = "1" } },
+                                   null,
+                                   new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer text-right">
+                    <button class="btn btn-success btn-sm " type="submit"><i class="fas fa-save"></i> Lưu</button>
+                    <a href="@Url.Action("Index","Banner")" class="btn btn-sm btn-success">
+                        <i class="fas fa fa-arrow-circle-left"></i> Quay lại
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+

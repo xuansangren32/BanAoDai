@@ -1,0 +1,12 @@
+﻿@using BanAoDai.Libraries;
+@if (TempData.ContainsKey("messege"))
+{
+
+    MessegeAlert messege = (MessegeAlert)TempData["messege"];
+    <div class="alert alert-success @messege.Type alert-dismissible fade show" role="alert">
+        <strong>Thông báo</strong> @messege.Msg.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}

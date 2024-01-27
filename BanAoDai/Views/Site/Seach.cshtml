@@ -1,0 +1,90 @@
+﻿@using MyClass.Model
+@using BanAoDai.Models
+@{
+    ViewBag.Title = "Seach";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+    string key = Request.QueryString["key"];
+    List<Product> result = new List<Product>();
+}
+<link rel="stylesheet" type="text/css" href="~/Public/tem/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Public/tem/styles/categories_responsive.css">
+@*<script src="~/Public/tem/js/jquery-3.2.1.min.js"></script>*@
+
+
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Trang Chủ</a></li>
+                    <li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ Hàng</a></li>
+                </ul>
+            </div>
+                    
+            <!-- Sidebar -->
+            <!-- Main Content -->
+            <h4> Kết Quả Tìm Kiếm: @key</h4>
+
+            @{ if (string.IsNullOrEmpty(key))
+                {
+                    <h3>Vui lòng nhập từ khoá để tìm kiếm</h3>
+
+                }
+                else
+                {
+                    if (key == "" || key.Length < 2)
+                    {
+                        <h3>Sản phẩm không có?</h3>
+
+                    }
+                    else
+                    {
+                        result = new MyClass.DAO.ProductDao().SearchByKey(key);
+
+                        foreach (var item in result)
+                        {
+                            var strImge = "";
+                            var img = item.ProductImages.FirstOrDefault(x => x.IsDefault);
+                            if (img != null)
+                            {
+                                strImge = img.Img;
+                            }
+
+                            <div class="product-item women">
+                                    <div class="product discount product_filter">
+                                        <div class="product_image">
+                                            <a href="/chi-tiet/@item.Slug-p@(item.Id)">
+                                                <img height="240" src="@strImge" alt="@item.Img">
+                                            </a>
+
+                                        </div>
+                                        <div class="favorite favorite_left"></div>
+                                        <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+                                        <div class="product_info">
+                                            <h6 class="product_name"><a href="/chi-tiet/@item.Slug-p@(item.Id)">@item.Name</a></h6>
+                                            <div class="product_price">@item.PriceBuy<span>$@item.PriceSale</span></div>
+                                            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                        }
+
+
+
+                    }
+                }
+
+
+            }
+        </div>
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MyClass.Model.Menu>
+
+                @if (Model != null && Model.Any())
+                {
+                    @*<nav class="navbar">*@
+                        foreach (var menu in Model)
+                        {
+
+
+
+                            <ul class="navbar_menu">
+                                @if (menu.Link.Equals("trang-chu")&& menu.Link.Equals("san-pham"))
+                                {
+                                    menu.Link = "";
+                                   
+                                }
+                                <li><a href="@menu.Link">@menu.Name</a></li>
+
+                            </ul>
+                        }
+                       
+                }
+
+           

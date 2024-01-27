@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MyClass.Model.Banner>
+
+
+
+
+
+
+
+<!-- ================== COMPONENT SLIDER  BOOTSTRAP  ==================  -->
+<div id="carousel1_indicator" class="slider-home-banner carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel1_indicator" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel1_indicator" data-slide-to="1"></li>
+        <li data-target="#carousel1_indicator" data-slide-to="2"></li>
+    </ol>
+    <hr style="margin:80px"/>
+    <div class="carousel-inner">
+        @*<div class="carousel-item active">
+                <img src="~/Public/tem/images/slider_1.jpg" alt="First slide">
+            </div>*@
+
+        @{ int index = 1;}
+        @foreach (var slider in Model)
+        {
+            if (index == 1)
+            {
+
+
+                <div class="carousel-item active">
+                  
+                    <img src="~/Public/images/@slider.Img" class="d-block w-100 " alt="@slider.Img" />
+                </div>
+
+                    
+            }
+            else
+            {
+                <div class="carousel-item">
+                 
+                    <img src="~/Public/images/@slider.Img" class="d-block w-100 " alt="@slider.Img" />
+                </div>}
+            index++;
+        }
+        @*<div class="container fill_height">
+                <div class="row align-items-center fill_height">
+                    <div class="col">
+                        <div class="main_slider_content">
+                            <h6>Spring / Summer Collection 2017</h6>
+                            <h1>Get up to 30% Off New Arrivals</h1>
+                            <div class="red_button shop_now_button"><a href="#">shop now</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        @*<div class="carousel-item">
+                <img src="~/Content/images/banners/slide2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/images/banners/slide3.jpg" alt="Third slide">
+            </div>*@
+    </div>
+    <a class="carousel-control-prev" href="#carousel1_indicator" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Trước</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel1_indicator" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Sau</span>
+    </a>
+</div>
+<!-- ==================  COMPONENT SLIDER BOOTSTRAP end.// ==================  .// -->

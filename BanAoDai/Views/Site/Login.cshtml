@@ -1,0 +1,50 @@
+﻿@model MyClass.Model.User
+
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Public/tem/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Public/tem/styles/categories_responsive.css">
+<hr style="margin:120px" />
+
+<div class="row justify-content-md-center">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Login
+
+            </div>
+            @ViewBag.error
+            <div class="card-body">
+                @using (Html.BeginForm(@*"Home", "Site",*@ FormMethod.Post))
+{
+        @Html.AntiForgeryToken()
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+                   
+                </div>
+        @*@Html.AntiForgeryToken()*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                @if (ViewBag.error3 != null)
+                {
+                    <span class="badge badge-danger">@ViewBag.error3</span>
+                }
+            </div>
+        <div class="form-group">
+            <input type="submit" name="submit" class="btn btn-primary" value="Login" />
+            <hr />
+            <a href="~/Site/Register">Đăng ký tài khoản</a>
+        </div>
+    }
+            </div>
+        </div>
+    </div>
+</div>

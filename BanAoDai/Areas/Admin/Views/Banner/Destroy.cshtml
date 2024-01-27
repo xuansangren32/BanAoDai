@@ -1,0 +1,201 @@
+﻿@model MyClass.Model.Banner
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h3>Bạn có chắc chắn muốn xóa cái này không?</h3>
+
+    <h4>Banner</h4>
+
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong class="text-danger">
+                            Xóa Banner
+                        </strong>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        @*<a href="@Url.Action("Edit","Banner")" class="btn btn-sm btn-success"><i class="fas fa-tools"></i> Sửa</a>*@
+                        <a href="@Url.Action("Index","Banner")" class="btn btn-sm btn-success">
+                            <i class="fas fa fa-arrow-circle-left"></i> Quay lại
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Hình Ảnh</th>
+                                    <th>Vị Trí</th>
+
+
+                                    <th>CreatedBy</th>
+                                    <th>CreatedBy_At</th>
+                                    <th>UpdatedBy</th>
+                                    <th>UpdatedAt</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Name)
+                                    </td>
+                                    <td>
+                                        <img width="100" height="100" src="~/Public/images/@Model.Img" class="img-fluid" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Position)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.CreatedBy_At)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.UpdatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.UpdatedAt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Status)
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Quay Lại", "Index")
+        </div>
+    }
+
+    @*<h2>Delete</h2>
+
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>Category</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Slug)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Slug)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ParentId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Orders)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Orders)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MetaDescription)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MetaDescription)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SeoKeyword)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SeoKeyword)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedBy_At)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedBy_At)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UpdatedBy)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UpdatedBy)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UpdatedAt)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UpdatedAt)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            }
+        </div>*@

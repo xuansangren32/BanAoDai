@@ -1,0 +1,334 @@
+﻿@model PagedList.PagedList<MyClass.Model.Product>
+@using PagedList.Mvc;
+@using PagedList;
+
+
+@{
+    ViewBag.Title = " Danh Sách Danh Mục Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<section class="content">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">
+                        Danh Sách Sản Phẩm
+                    </strong>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="@Url.Action("Create","Product")" class="btn btn-sm btn-success"><i class="fas fa-plus-circle"></i> Thêm Mới</a>
+                    <a href="@Url.Action("Trash","Product")" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Thùng Rác</a>
+                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xóa Nhiều</a>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    @using (Html.BeginForm("Index", "Product", FormMethod.Get, new { }))
+
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                    <div class="input-group input-group-sm">
+                        @Html.TextBox("Searchtext"@*, new { @class = "form-control" }*@)
+                        @Html.Partial("Messege")
+                        <span class="input-group-append">
+                            <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                        </span>
+                    </div>
+
+                    }
+                </div>
+            </div>
+           
+            <table class="table table-bordered">
+
+                <tr>
+                    @*<th><input type="checkbox"id="SelectAll" /></th>*@
+                    <th><input type="checkbox" id="SelectAll" /></th>
+                    <th style="width:20px;" class="text-center">Mã</th>
+                    <th @*style="width:20px;"*@ class="text-center">Tên Sản Phẩm</th>
+                    <th class="text-center">Hình ảnh</th>
+                    @*<th class="text-center">Danh Mục</th>*@
+                    @*<th>Thương Hiệu</th>*@
+                    @*<th class="text-center">Slug</th>*@
+                    <th>Giá</th>
+                    <th>Khuyen Mai</th>
+                    <th>Số lượng</th>
+                    <th @*style="width:160px;"*@ class="text-center">Ngày Tạo</th>
+                    <th>Hiện thị</th>
+                    <th>Hiện Trang chủ</th>
+                    <th style="width:200px;" class="text-center">Chức Năng</th>
+
+                </tr>
+                @if (Model != null && Model.Any())
+                {
+
+                    foreach (var item in Model)
+                    {
+                        var strImg = "";
+                        var strCheck = item.IsActive ? "<i class='fa fa-check text-succes '></i> " : "<i class='fa fa-times text-danger '></i> ";
+                        var strCheckHome = item.IsHome ? "<i class='fa fa-check text-succes '></i> " : "<i class='fa fa-times text-danger '></i> ";
+                        var CheckImage = item.ProductImages.FirstOrDefault(x => x.IsDefault);
+                        if (CheckImage != null)
+                        {
+                            strImg = CheckImage.Img;
+                        }
+                        <tr id="trow_@item.Id">
+
+                            <td>
+                                <input type="checkbox" id="cbkItem" name="checkItem[@item.Id]" value="@item.Id" />
+                            </td>
+                            <td class="text-center">@item.Id</td>
+                            <td class="text-center">@item.Name</td>
+                            <td><img class="imgproduct" data-id="@item.Id" src="@strImg" width="70" height="90" /></td>
+                            @*<td class="text-center">@item.Slug</td>*@
+
+                            <td class="text-center">@item.PriceBuy</td>
+                            <td class="text-center">@item.PriceSale</td>
+                            <td class="text-center">@item.Qty</td>
+                            <td class="text-center">@item.CreatedBy_At</td>
+                            <td class="text-center">
+                                <a href="#" data-id="@item.Id" class="btnHome"> @Html.Raw(strCheckHome)</a>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" data-id="@item.Id" class="btnActive"> @Html.Raw(strCheck)</a>
+                            </td>
+                            <td class="text-center">
+                                @if (item.Status == 1)
+                                {
+                                    <a href="@Url.Action("Status", "Product", new { id = item.Id })" class="btn btn-sm btn-success"><i class="fas fa-toggle-on"></i></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Status", "Product", new { id = item.Id })" class="btn btn-sm btn-danger"><i class="fas fa-toggle-off"></i></a>
+                                }
+
+                                <a href="@Url.Action("Edit", "Product", new { id = item.Id })" class="btn btn-sm btn-success"><i class="fas fa-tools"></i> Sửa</a>
+                                <a href="@Url.Action("Details", "Product", new { id = item.Id })" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Chi tiết</a>
+                                <a href="@Url.Action("Delete", "Product", new { id = item.Id })" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i> Xóa
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4">Không có dữ liệu!!! </td>
+
+                    </tr>
+                }
+            </table>
+
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer text-right">
+            <a href="@Url.Action("Create","Product")" class="btn btn-sm btn-success"><i class="fas fa-plus-circle"></i> Thêm Mới</a>
+            <a href="@Url.Action("Trash","Product")" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Thùng Rác</a>
+            <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xóa Nhiều</a>
+            <!-- /.card-footer-->
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }));
+        </div>
+
+    </div>
+    @*<script>
+            const elementAll = document.querySelector("#SelectAll");
+            elementAll.addEventListener("click", function () {
+                const elementitems = document.querySelectorAll("#cbkItem");
+                elementitems.forEach(function (item) {
+                    if (elementAll.checked == true) {
+                        item.checked = true;
+                    }
+                    else {
+                        item.checked = false;
+                    }
+                })
+            });
+        </script>*@
+
+    <div id="dialog">
+        <iframe id="myIframe" style="border: 0; width: 100%; height: 100%;"></iframe>
+    </div>
+</section>
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            //hiển thị form upload ảnh
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: "fade",
+                hide: "fade",
+                modal: true,
+                height: '600',
+                width: '700',
+                resizable: true,
+                title: 'Quản lý ảnh sản phẩm',
+                close: function () {
+                    window.location.reload();
+                }
+            });
+            $('body').on("click", ".imgproduct", function () {
+                var proid = $(this).attr("data-id");
+                $("#dialog #myIframe").attr("src", "/admin/ProductImage/Index?id=" + proid);
+                $('#dialog').dialog('open');
+                return false;
+            });
+
+
+            $('body').on('click', '#BtnDeleteAll', function (e) {
+                e.preventDefault();
+                var str = "";
+                var checkbox = $(this).parents('.card').find('tr td input:checkbox');
+                var i = 0;
+                checkbox.each(function () {
+
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                        var _id = $(this).val();
+                        if (i === 0) {
+                            str += _id;
+                        } else {
+                            str += "," + _id;
+                        }
+                        i++;
+                    } else {
+                        checkbox.attr('selected', '');
+                    }
+                });
+                if (str.length > 0) {
+                    var conf = confirm('Bạn có muốn xóa các mục này hay không?');
+                    if (conf === true) {
+                        $.ajax({
+                            url: '/admin/Products/deleteAll',
+                            type: 'POST',
+                            data: { ids: str },
+                            success: function (rs) {
+                                if (rs.success) {
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            $('body').on('change', '#SelecAll', function () {
+                var checkStatus = this.checked;
+                var checkbox = $(this).parents('.card-body').find('tr td input:checkbox');
+                checkbox.each(function () {
+                    this.checked = checkStatus;
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                    } else {
+                        checkbox.attr('selected', '');
+                    }
+                });
+            });
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn muốn xóa đúng chứ?');
+                if (conf == true) {
+                    $.ajax({
+                        url: '/admin/Products/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#trow_' + id).remove();
+                            }
+                        }
+
+                    });
+                }
+            });
+
+            $('body').on('click', '.btnSale', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data("id");
+
+                $.ajax({
+                    url: '/admin/Products/IsSale',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isSale) {
+                                btn.html("<i class='fa fa-check text-succes '></i>");
+                            } else {
+                                btn.html("<i class='fa fa-times text-danger '></i> ");
+                            }
+                        }
+
+                    }
+
+                });
+            });
+            $('body').on('click', '.btnHome', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data("id");
+
+                $.ajax({
+                    url: '/admin/Product/IsHome',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isHome) {
+                                btn.html("<i class='fa fa-check text-succes '></i>");
+                            } else {
+                                btn.html("<i class='fa fa-times text-danger '></i> ");
+                            }
+                        }
+
+                    }
+
+                });
+            });
+            $('body').on('click', '.btnActive', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data("id");
+
+                $.ajax({
+                    url: '/admin/Product/IsActive',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isAcive) {
+                                btn.html("<i class='fa fa-check text-succes '></i>");
+                            } else {
+                                btn.html("<i class='fa fa-times text-danger '></i> ");
+                            }
+                        }
+
+                    }
+
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BanAoDai.Models.ShoppingCartItem>
+    @using BanAoDai.Common
+@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/Public/tem/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Public/tem/styles/categories_responsive.css">
+
+
+
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Trang Chủ</a></li>
+                    <li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ Hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+            <!-- Main Content -->
+            @*<div class="row">
+                <div class="col-md-12">
+                    <h1>Thanh Toán</h1>
+                    <p>Bạn hãy kiểm tra lại đơn hàng cho chích xác!</p>
+                </div>
+
+            </div>*@
+            <div class="row">
+                <div class="col-md-12 "id="load_data">
+              @Html.Action("Partial_Item_Cart", "ShoppingCart")
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Public/tem/js/categories_custom.js"></script>
+
+
+}

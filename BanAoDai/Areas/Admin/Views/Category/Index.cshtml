@@ -1,0 +1,103 @@
+﻿@model IEnumerable<MyClass.Model.Category>
+
+@{
+    ViewBag.Title = " Danh Sách Danh Mục Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">
+                        Danh Mục Sản Phẩm
+                    </strong>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="@Url.Action("Create","Category")" class="btn btn-sm btn-success"><i class="fas fa-plus-circle"></i> Thêm Mới</a>
+                    <a href="@Url.Action("Trash","Category")" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Thùng Rác</a>
+                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xóa Nhiều</a>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="card-body">
+           
+            @Html.Partial("Messege")
+        <table class="table table-bordered">
+            <tr>
+                @*<th><input type="checkbox"id="SelectAll" /></th>*@
+                <th><input type="checkbox" id="SelectAll" /></th>
+                <th style="width:20px;" class="text-center">Mã</th>
+                <th @*style="width:20px;"*@ class="text-center">Tên Danh Mục</th>
+                <th @*style="width:20px;"*@ class="text-center">Slug</th>
+                <th @*style="width:160px;"*@ class="text-center">Ngày Tạo</th>
+                <th @*style="width:200px;"*@ class="text-center">Chức Năng</th>
+
+            </tr>
+           
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+
+                        <td>
+                            <input type="checkbox" id="cbkItem" name="checkItem[@item.Id]" value="@item.Id" />
+                        </td>
+                        <td class="text-center">@item.Id</td>
+                        <td class="text-center">@item.Name</td>
+                        <td class="text-center">@item.Slug</td>
+                        <td class="text-center">@item.CreatedBy_At</td>
+                        <td class="text-center">
+                            @if (item.Status == 1)
+                            {
+                                <a href="@Url.Action("Status", "Category", new { id = item.Id })" class="btn btn-sm btn-success"><i class="fas fa-toggle-on"></i></a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Status", "Category", new { id = item.Id })" class="btn btn-sm btn-danger"><i class="fas fa-toggle-off"></i></a>
+                            }
+
+                            <a href="@Url.Action("Edit", "Category", new { id = item.Id })" class="btn btn-sm btn-success"><i class="fas fa-tools"></i> Sửa</a>
+                            <a href="@Url.Action("Details", "Category", new { id = item.Id })" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Chi tiết</a>
+                            <a href="@Url.Action("Delete", "Category", new { id = item.Id })" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Xóa
+                            </a>
+                        </td>
+
+                    </tr>
+                   
+               
+
+            }
+          
+        </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer text-right">
+            <a href="@Url.Action("Create","Category")" class="btn btn-sm btn-success"><i class="fas fa-plus-circle"></i> Thêm Mới</a>
+            <a href="@Url.Action("Trash","Category")" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Thùng Rác</a>
+            <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xóa Nhiều</a>
+            <!-- /.card-footer-->
+        </div>
+       
+    </div>
+    <script>
+        const elementAll = document.querySelector("#SelectAll");
+        elementAll.addEventListener("click", function () {
+            const elementitems = document.querySelectorAll("#cbkItem");
+            elementitems.forEach(function (item) {
+                if (elementAll.checked == true) {
+                    item.checked = true;
+                }
+                else {
+                    item.checked = false;
+                }
+            })
+        });
+    </script>
+
+</section>
